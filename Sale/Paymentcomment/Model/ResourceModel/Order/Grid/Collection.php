@@ -33,44 +33,13 @@ class Collection extends CoreSalesGrid
  
     protected function _renderFiltersBefore()
     {
-        $billingAliasName = 'billing_o_a';
-        $joinTable = $this->getTable('sales_order');
-        // $this->getSelect()->joinLeft(
-        //     $joinTable,
-        //     'main_table.entity_id = sales_order.entity_id',
-        //     ['paycomment']
-        // );
-
-        $this->addFilterToMap(
-            'billing_paycomment',
-            $billingAliasName . '.paycomment'
-        )->addFilterToMap(
-            'billing_paycommenttextarea',
-            $billingAliasName . '.paycommenttextarea'
-        )->addFilterToMap(
-            'billing_yesno',
-            $billingAliasName . '.yesno'
-        );
-
+        $joinTablepaycomment = $this->getTable('sales_order');
         $this->getSelect()->joinLeft(
-             [$billingAliasName => $joinTable],
-             'main_table.entity_id = sales_order.entity_id',
-              [
-                $billingAliasName . '.paycomment',
-                $billingAliasName . '.paycommenttextarea',
-                $billingAliasName . '.yesno'
-            ]
+            $joinTablepaycomment,
+            'main_table.entity_id = sales_order.entity_id',
+            ['paycomment','paycommenttextarea','yesno']
+
         );
-        // $this->getSelect()->joinLeft(
-        //     $joinTable,
-        //     'main_table.entity_id = sales_order.entity_id',
-        //     ['paycommenttextarea']
-        // );
-        // $this->getSelect()->joinLeft(
-        //     $joinTable,
-        //     'main_table.entity_id = sales_order.entity_id',
-        //     ['yesno']
-        // );
        //echo $query =  $this->getSelect()__toString(); die('test');
         parent::_renderFiltersBefore();
     }
